@@ -40,11 +40,58 @@ namespace YourFairShare_MVC.Models
         }
 
         public static List<TennatModel> LoadTennats() {
+            
             string sql = @"select FullName, HasKids, HasPets, Payment from dbo.Tennats;";
 
             return SqlDataAccess.LoadData<TennatModel>(sql);
         }
 
+        public static int CreateBill(string name, decimal amount, DateTime dueDate) {
+
+            BillModel data = new BillModel
+            {
+                Name = name,
+                Amount = amount,
+                DueDate = dueDate
+            };
+
+            string sql = @"insert into dbo.Bills(Name, Amount, DueDate)
+                            values(@Name, @Amount, @DueDate);";
+
+            return SqlDataAccess.SaveData(sql, data);
+        }
+
+        public static List<BillModel> ViewBills() {
+            
+            string sql = @"select Name, Amount, DueDate from dbo.Bills;";
+
+        
+            return SqlDataAccess.LoadData<BillModel>(sql);
+        }
+
+        public static void UpdateMonthlyPayments() {
+
+            //Determine Portion
+            List<BillModel> bills = ViewBills();
+            decimal portion = 0;
+            foreach (BillModel bill in bills) {
+                portion += bill.Amount;
+            }
+            // Load Tennats and update
+            List<TennatModel> allTennats = LoadTennats();
+          
+
+            float payment = (float)portion / allTennats.Count;
+
+            foreach (var t in allTennats) {
+                t.Payment = payment;
+            }
+
+            string sql = @"UPDATE dbo.Tennats
+                        SET Payment = @payment;";
+
+            int index = SqlDataAccess.SaveData(sql, allTennats);
+        }
 
     }
 }

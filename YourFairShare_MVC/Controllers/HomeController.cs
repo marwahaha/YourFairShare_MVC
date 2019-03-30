@@ -34,6 +34,7 @@ namespace YourFairShare_MVC.Controllers
 
         public ActionResult LoadTennats() {
             ViewBag.Message = "View Tennats";
+            DataProcessor.UpdateMonthlyPayments();
             var data = DataProcessor.LoadTennats();
             List<TennatModel> tennats = new List<TennatModel>();
             foreach (var row in data) {
@@ -48,16 +49,40 @@ namespace YourFairShare_MVC.Controllers
 
             return View(tennats);
         }
-        public ActionResult About() {
-            ViewBag.Message = "Your application description page.";
+  
+        public ActionResult ViewBills() {
+            ViewBag.Message = "View Bills";
+            
+            var data = DataProcessor.ViewBills();
+            List<BillModel> bills = new List<BillModel>();
+            foreach (var row in data) {
+                bills.Add(new BillModel
+                {
+                    Name=row.Name,
+                    Amount = row.Amount,
+                    DueDate = row.DueDate
+                });
+            }
+            return View(bills);
+        }
+
+        public ActionResult CreateBill() {
 
             return View();
         }
 
-        public ActionResult Contact() {
-            ViewBag.Message = "Your contact page.";
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateBill(BillModel b) {
 
+            if (ModelState.IsValid) {
+                DataProcessor.CreateBill(b.Name, b.Amount, b.DueDate);
+                
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }
+
+  
 }

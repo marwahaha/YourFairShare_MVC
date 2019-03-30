@@ -8,8 +8,8 @@ namespace YourFairShare_MVC.Models
     public class BillModel
     {
         public string Name { get; set; }
-        public List<TennatModel> ResponsibleTennats { get; set; }
-        public float Amount { get; set; }
+        //TODO figure out how to assign different tennats
+        public decimal Amount { get; set; }
         public DateTime DueDate { get; set; }
 
     }
