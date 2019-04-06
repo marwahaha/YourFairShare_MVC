@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+
 using System.Web;
 
 namespace YourFairShare_MVC.Models
 {
     public static class DataProcessor
     {
-
+        //TODO convert to linq
         public static int CreateTennat(string fullName, bool hasKids, bool hasPets, float payment) {
-
+             
             TennatModel data = new TennatModel{
                 FullName = fullName,
                 HasKids = hasKids,
                 HasPets = hasPets,
                 Payment = payment
             };
-
+            
             string sql = @"insert into dbo.Tennats(FullName, HasKids, HasPets, Payment)
                             values(@FullName, @HasKids, @HasPets, @Payment);";
 
@@ -62,10 +65,21 @@ namespace YourFairShare_MVC.Models
         }
 
         public static List<BillModel> ViewBills() {
-            
-            string sql = @"select Name, Amount, DueDate from dbo.Bills;";
 
+            string sql = "select* from dbo.Bills " ;
+
+
+                return SqlDataAccess.LoadData<BillModel>(sql);
+            }
+            
         
+
+
+
+        //GET Single Bills and Tennats
+        public static List<BillModel> GetBill(string input) {
+            //throw new NotImplementedException();
+            var sql = string.Format("dbo.GetBill {0}", input);
             return SqlDataAccess.LoadData<BillModel>(sql);
         }
 

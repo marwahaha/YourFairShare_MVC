@@ -25,6 +25,8 @@ namespace YourFairShare_MVC.Models
             
         }
 
+
+
         public static int SaveData<T>(string sql, T data) {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString())) {
                 return cnn.Execute(sql, data);
