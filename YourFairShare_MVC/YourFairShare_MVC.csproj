@@ -275,7 +275,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Tennat\CreateTennat.cshtml" />
+    <Content Include="Views\Tennat\Create.cshtml" />
     <Content Include="Views\Tennat\LoadTennats.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -286,9 +286,12 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Bill\CreateBill.cshtml" />
+    <Content Include="Views\Bill\Create.cshtml" />
     <Content Include="Views\Bill\ViewBills.cshtml" />
     <Content Include="Views\Bill\Edit.cshtml" />
+    <Content Include="Views\Bill\Delete.cshtml" />
+    <Content Include="Views\Tennat\Edit.cshtml" />
+    <Content Include="Views\Tennat\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

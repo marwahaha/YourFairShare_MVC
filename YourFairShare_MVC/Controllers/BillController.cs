@@ -31,14 +31,14 @@ namespace YourFairShare_MVC.Controllers
             return View(bills);
         }
 
-        public ActionResult CreateBill() {
+        public ActionResult Create() {
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateBill(BillModel b) {
+        public ActionResult Create(BillModel b) {
 
             if (ModelState.IsValid) {
                 DataProcessor.CreateBill(b.Name, b.Amount, b.DueDate);
@@ -52,7 +52,7 @@ namespace YourFairShare_MVC.Controllers
         [HttpGet]
         public ActionResult Edit(string name) {
             if (name == null) {
-                return RedirectToAction("ViewBills");
+               // return RedirectToAction("ViewBills");
             }
             var bill = DataProcessor.GetBill(name);
             
@@ -65,20 +65,51 @@ namespace YourFairShare_MVC.Controllers
             if (ModelState.IsValid) {
                 BillModel newBill = new BillModel
                 {
+                    ID = b.ID,
                     Name = b.Name,
                     Amount = b.Amount,
                     DueDate = b.DueDate
                 };
-                throw new NotImplementedException();
-
-                //TODO Write SQL procedure to update the record. 
-                string sql = @"UPDATE dbo.Bills
-                                SET Name = {newbill.Name},Name, Amount= {newBill.Amount}, DueDate= {newBill.DueDate};
-                                WHERE ID = {id}";
+                
+                string sql = $"UPDATE dbo.Bills SET Name = '{newBill.Name}', " +
+                    $"Amount= {newBill.Amount}, " +
+                    $"DueDate= '{newBill.DueDate.ToShortDateString()}' " +
+                    $"WHERE ID = {newBill.ID}";
             
                 
                 SqlDataAccess.SaveData(sql, newBill);
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewBills");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Delete(string name) {
+            if (name == null) {
+             //   return RedirectToAction("ViewBills");
+            }
+            var bill = DataProcessor.GetBill(name);
+
+            return View(bill[0]); //? Hacky but works
+            
+        }
+
+        [HttpPost]
+        public ActionResult Delete(BillModel b) {
+            if (ModelState.IsValid) {
+                BillModel BillToDelete = new BillModel
+                {
+                    ID = b.ID,
+                    Name = b.Name,
+                    Amount = b.Amount,
+                    DueDate = b.DueDate
+                };
+
+                string sql = $"DELETE FROM dbo.Bills  WHERE Name = '{BillToDelete.Name}'";
+
+
+                SqlDataAccess.SaveData(sql, BillToDelete);
+                return RedirectToAction("ViewBills");
             }
             return View();
         }

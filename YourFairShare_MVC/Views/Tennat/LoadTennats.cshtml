@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<YourFairShare_MVC.Models.TennatModel>
 
 @{
-    ViewBag.Title = "Show All Tennats";
+    ViewBag.Title = "LoadTennats";
 }
 
-<h2>All Tennats</h2>
+<h2>LoadTennats</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateTennat")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.Payment)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { name=item.FullName }) |
+            
+            @Html.ActionLink("Delete", "Delete", new { name = item.FullName })
         </td>
     </tr>
 }

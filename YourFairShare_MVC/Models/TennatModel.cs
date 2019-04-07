@@ -8,6 +8,7 @@ namespace YourFairShare_MVC.Models
     public class TennatModel
 
     {
+        public int ID { get; set; }
         public string FullName { get; set; }
         public bool HasKids { get; set; } = false;
         public bool HasPets { get; set; } = false;

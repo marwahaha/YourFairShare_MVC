@@ -70,17 +70,20 @@ namespace YourFairShare_MVC.Models
 
 
                 return SqlDataAccess.LoadData<BillModel>(sql);
-            }
-            
+        }
         
-
-
 
         //GET Single Bills and Tennats
         public static List<BillModel> GetBill(string input) {
             //throw new NotImplementedException();
-            var sql = string.Format("dbo.GetBill {0}", input);
+            var sql = $"dbo.GetBill '{input}'";
             return SqlDataAccess.LoadData<BillModel>(sql);
+        }
+
+        public static List<TennatModel> GetTennat(string input) {
+            //throw new NotImplementedException();
+            var sql = $"dbo.GetTennat '{input}'";
+            return SqlDataAccess.LoadData<TennatModel>(sql);
         }
 
         public static void UpdateMonthlyPayments() {
