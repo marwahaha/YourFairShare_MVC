@@ -9,4 +9,4 @@ Features will Include
 CRUD actions for Bills and Tennats
 
 Auto Calculate Bills evenly
-Abilty to "opt out" of Specific bills (IE: Pet/child expenses shouldnt be paid by roomates)
+Ability to "opt out" of Specific bills (IE: Pet/child expenses shouldnt be paid by roomates)
